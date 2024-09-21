@@ -1,0 +1,89 @@
+
+
+
+
+<div class="container">
+  <img  id="log" src="../../../assets/images/rcl-logo.png" />
+
+  <img src="{{ll}}" />
+<p>হিসাবের নাম</p>
+    <div style="display: none;" id="pdfTable" #pdfTable>
+  
+      <h2>Angular HTML To PDF Generator Example - ItSolutionStuff.com </h2>
+  <img width="270px" height="40px" src="{{ll}}" />
+
+
+  <div style=" width: 50; " class="float-parent-element">
+    <div style="  float: left; 
+    width: 50; " class="float-child-element">
+      <div style=" background-color: red; 
+      margin-left: 50; 
+      height: 100px; " class="red">Float Column 1</div>
+    </div>
+    <div class="float-child-element">
+      <div class="yellow">Float Column 2</div>
+    </div>
+  </div>
+        <input type="checkbox" placeholder="aaaaaaa"/>
+  
+      <table id="customers" headerRows="1" class="table table-bordered">
+  
+        <thead>
+  
+          <tr style="  page-break-inside: avoid;">
+  
+            <th>Firstname</th>
+  
+            <th>Lastname</th>
+  
+            <th>Website</th>
+  
+          </tr>
+  
+        </thead>
+  
+        <tbody>
+  
+          <tr style="  page-break-inside: avoid;" *ngFor='let in of counter(100) ;let i = index'>
+  
+            <td><span *ngIf="i%2===0 " style="color: red;">..</span> Hardik</td>
+  
+            <td>Savani</td>
+  
+            <td>itsolutionstuff.com</td>
+  
+          </tr>
+  
+          <tr>
+  
+            <td>Vimal</td>
+  
+            <td>Kashiyani</td>
+  
+            <td>hdtuto.com</td>
+  
+          </tr>
+  
+          <tr>
+  
+            <td>Harshad</td>
+  
+            <td>Pathak</td>
+  
+            <td>nicesnippets.com</td>
+  
+          </tr>
+  
+        </tbody>
+  
+      </table>
+  
+    </div>
+  
+    <button class="btn btn-primary" (click)="downloadAsPDF()">Export To PDF</button>
+
+    <div>
+
+    </div>
+  
+  </div>

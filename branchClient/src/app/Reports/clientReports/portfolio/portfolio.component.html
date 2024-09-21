@@ -1,0 +1,119 @@
+<h2 class="text-center">:: Client Portfolio ::</h2>
+
+<div class="card-body shadow-lg mx-4 p-3">
+    <form [formGroup]="inputForm" (ngSubmit)="onSubmit()">
+      <div class="row mx-2">
+        <div class="col-md-3">
+         
+            <label style="margin-left: 15px;" class="label" for="code">Code</label>
+            <app-text-input formControlName="code" [label]="'Code'"></app-text-input>
+          
+        
+        </div>
+        <div class="col-md-3 pt-4">
+         
+            <button [disabled]="inputForm.invalid"  class="ml-3 btn btn-primary submit px-3">SUBMIT</button>
+  
+            <button type="button" (click)="getReport()" [disabled]="inputForm.invalid && ( !portfolio || portfolio?.companyLists.length ===0)"  class="ms-3 btn btn-info submit px-3">PRINT</button>
+          
+        
+        </div>
+  
+  
+      </div>
+     
+      </form>
+
+      <!--<button class="btn btn-info" (click)="getReport()">TEST</button> <button class="btn btn-info" (click)="getDownloadReport()">DOWNLOAD</button>-->
+    
+  </div>
+
+  <div  class="container mt-2 mb-4">
+    <div>
+      <div class="overflow-auto">
+        <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table table-hover table-bordered" style="cursor: pointer;">
+          <thead class="bg-dark text-white">
+          <tr>
+                 <th>SL#</th>
+                 <th>Instrument</th>
+                 <th>Total</th>
+                 <th>Free</th>
+                 <th>Lock</th>
+                 <th>Avg Price</th>
+                 <th>Total Cost</th>
+                 <th>Market Rate</th>
+                 <th>Market Value</th>
+                 <th>Gain/Loss</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let company of portfolio?.companyLists; let i=index;" >
+            <td>{{i + 1}}</td>
+            <td>{{company.firmsnm1 }} </td>
+            <td>{{company.quantity}}</td>
+            <td>{{company.slbqty}}</td>
+            <td><span *ngIf="company.pldqty !=0">{{company.pldqty}}</span> </td>
+            <td>{{company.rate  | number:'1.1-2'}}</td>
+            <td>{{company.amount | number:'1.1-2'}}</td>
+            <td>{{company.mktrt | number:'1.1-2'}}</td>
+            <td>{{company.mktamt | number:'1.1-2'}}</td>
+            <td>{{(company.mktamt - company.amount) | number:'1.1-2'}}</td>
+
+
+           <!--<th># {{order.id}}</th>
+            <td>{{order.orderDate | date: 'medium'}}</td>
+            <td>{{order.total | currency}}</td>
+            <td>{{order.status}}</td>-->
+          </tr>
+          </tbody>
+        </table>
+      </div>
+      <div *ngIf="portfolio else content" class="overflow-auto mt-5">
+        <table class="table">
+            <tbody>
+                <tr class="bg-info">
+                    <td>Total Buy Cost :</td>
+                    <td>{{portfolio.totalBuyCost | number:'1.1-2'}}</td>
+                    <td>Market Value:</td>
+                    <td>{{portfolio.marketVal | number:'1.1-2'}}</td>
+                </tr>
+                <tr class="bg-primary">
+                    <td>Matured Balance:</td>
+                    <td>{{portfolio.maturedBal | number:'1.1-2'}}</td>
+                    <td>Equity(All Instrument):</td>
+                    <td>{{portfolio.equityBal | number:'1.1-2'}}</td>
+                </tr>
+                <tr class="bg-warning">
+                    <td>Sale Reciveable :</td> <td><span *ngIf="portfolio.saleRec else con">{{portfolio.saleRec | number:'1.1-2'}}</span> 
+                        <ng-template #con>0.00</ng-template> </td>
+                </tr>
+                <tr class="bg-secondary">
+                    <td>Ledger Balance :</td>
+                    <td>{{portfolio.ledgerBal | number:'1.1-2'}}</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td class="bg-warning">Realised Gain/Loss :</td>
+                    <td class="bg-warning">{{portfolio.rglBal | number:'1.1-2'}}</td>
+                </tr>
+                <tr>
+                    <td class="bg-secondary">Accrued Charges :</td>
+                    <td class="bg-secondary">{{portfolio.accruedBal | number:'1.1-2'}}</td>
+                    <td class="bg-light">Un Realised Capital gain/loss :</td>
+                    <td class="bg-light">{{portfolio.unrealiseBal | number:'1.1-2'}}</td>
+                </tr>
+                <tr>
+                    <td class="bg-info">Charges & Fees :</td> <td class="bg-info">{{portfolio.chargeFee | number:'1.1-2'}}</td>
+                    <td class=" bg-danger"><b>Total Capital Gain/Loss:</b> </td>
+                    <td class="bg-danger">{{portfolio.totalCapital | number:'1.1-2'}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+      
+    </div>
+    <ng-template #content>
+        <h3 class="text-center">No data found</h3>
+    </ng-template>
+  </div>

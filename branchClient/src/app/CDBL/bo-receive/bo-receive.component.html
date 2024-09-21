@@ -1,0 +1,74 @@
+<h2 class="text-center">BO Sale</h2>
+
+<div class="card-body shadow-lg mx-4 p-3">
+    <form [formGroup]="inputForm" (ngSubmit)="onSubmit()">
+      <div class="row mx-2">
+        <div class="col-md-3">
+         
+            <label style="margin-left: 15px;" class="label" for="code">Client Name</label>
+            <app-text-input  formControlName="clientName" [label]="'Client Name'" ></app-text-input>
+        </div>
+       
+        <div class="col-md-3">
+            <label style="margin-left: 15px;" class="label" for="code">Quantity</label>
+            <app-text-input min="1" type="number" [minL]="1"  formControlName="quantity" [label]="'Quantity'" (input)="inputHandle($event)"></app-text-input>
+           
+        </div>
+        <div class="col-md-3">
+         <label style="margin-left: 5px;" class="label" for="code">Price</label>
+         <input formControlName="amount" class="form-control" value={{boPrice}} readonly />
+           
+        </div>
+ 
+  
+  
+      </div>
+      <div class="ms-5 mx-3">
+        <p>Total Amount: <span style="color: crimson;font-weight:bold">{{totalAmount}}</span></p>
+       
+        <button [disabled]="inputForm.invalid"  class="ml-3  btn btn-primary submit px-3">SUBMIT</button>
+      
+        <!--<button type="button" (click)="onPrint()" [disabled]="inputForm.invalid &&  !client"  class="ms-3 mt-4 btn btn-info submit px-3">PRINT</button>-->
+    </div>
+      </form>
+    
+  </div>
+
+  <div *ngIf="boRec" class="mb-4">
+    <div class="ms-5">
+        Data Saved Successfully!!! Recept No : {{this.boRec.mR_NO}}
+        <button type="button" (click)="onPrint()" [disabled]="  !boRec"  class="ms-3 mt-4 btn btn-info submit px-3">PRINT</button>
+    </div> 
+    <div class="card-body mx-4 shadow-lg p-4">
+        <div class="row ">
+            <div class="col-md-6">
+              <img src="../../assets/images/rcl-logo.png" alt="n/a" />
+            </div>
+            <div class="col-md-6">
+              
+                <h3 class="float-right">{{this.boRec.branchName}}</h3>
+             
+              </div>
+        </div>
+        <h2 class="text-center text-primary">BO Book Charge Money Receipt</h2>
+        <div class="row">
+            <div class="col-md-6">
+                <p>MR: {{this.boRec.mR_NO}}</p>
+              </div>
+              <div class="col-md-6">
+                
+                  <p class="float-right">Date: {{this.boRec.date}}</p>
+               
+                </div>
+        </div>
+        <div>
+            <p>Received with thanks from <b>{{this.boRec.name}}</b></p>
+            <p>Total Quantity <b>{{this.boRec.qty}}</b> of BO A/C opening form</p>
+            <p>Taka <span>{{this.boRec.amount}}/- in Cash</span></p>
+        </div>
+        <div>
+            * This is a computer generate money receipt, do not required any signature
+        </div>
+    </div>
+   
+  </div>

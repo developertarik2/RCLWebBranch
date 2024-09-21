@@ -1,0 +1,99 @@
+<h2 class="text-center">:: Tax Report ::</h2>
+
+<div class="card-body shadow-lg mx-4 p-3">
+  <form [formGroup]="inputForm" (ngSubmit)="onSubmit()">
+    <div class="row mx-2">
+      <div class="col-md-3">
+       
+          <label style="margin-left: 15px;" class="label" for="code">Code</label>
+          <app-text-input formControlName="code" [label]="'Code'"></app-text-input>
+        
+      
+      </div>
+<div class="col-md-3">
+  
+    <label class="label ms-3" for="formDate">From Date</label>
+  
+  <app-text-input [type]="'date'" formControlName="fromDate" [label]="'Form Date'" ></app-text-input>
+
+</div>
+<div class="col-md-3">
+  
+    <label class="label ms-3" for="toDate">To Date</label>
+    <app-text-input [type]="'date'" formControlName="toDate" [label]="'To Date'" ></app-text-input>
+  
+
+</div>
+
+
+    </div>
+    <div class="ms-5 mx-3">
+      <button [disabled]="inputForm.invalid"  class="ml-3 btn btn-primary submit px-3">SUBMIT</button>
+
+      <button (click)="onPrint()" [disabled]="inputForm.invalid && ( !tax)"  class="ms-3 btn btn-info submit px-3">PRINT</button>
+  </div>
+    </form>
+  
+</div>
+<div *ngIf="tax" class="mx-3">
+    <h2 class="text-primary text-center mt-3">To Whom It May Concern</h2>
+
+    <p>
+        This is to certify that <b>Mr./Mrs. {{client.aname}}</b> Client Code : <b>{{client.acode}}</b> BO ID: <b>.{{client.boid}}</b>
+        has been maintaining an
+        Account with our Brokerage House. His/ Her detail information are given bellow:
+    </p>
+    
+    <h3 class="text-center text-info">Transaction Period: <b>{{fromDate}} To {{toDate}}</b> </h3>
+    <p>Father's/Husband's Name :{{client.faname}}</p>
+    <p>Mother's Name :{{client.moname}}</p>
+    <p>Address :{{client.address}}</p>
+    
+    <div class="pb-4">
+        <table class="table table-bordered">
+            <tbody>
+                <tr>
+                    <td><b>Opening Equity</b> </td>
+                    <td class="font-weight-bold"><b>{{tax.openingEquity | number:'1.1-2'}}</b> </td>
+                    <td><b>Closing Equity</b> </td>
+                    <td><b>{{tax.closingEquity | number:'1.1-2'}}</b></td>
+                </tr>
+                <tr>
+                    <td>Deposit During This Period</td>
+                    <td>{{tax.deposit | number:'1.1-2'}}</td>
+                    <td>Withdrawal</td>
+                    <td>{{tax.withdraw | number:'1.1-2'}}</td>
+                </tr>
+                <tr>
+                    <td>Securities Deposit</td>
+                    <td>{{tax.sd | number:'1.1-2'}}</td>
+                    <td>Securities Withdrawal</td>
+                    <td>{{tax.sw | number:'1.1-2'}}</td>
+                </tr>
+                <tr>
+                    <td>Charge & Fees</td>
+                    <td>{{tax.charge | number:'1.1-2'}}</td>
+                    <td><b>Balance as on (Cr/Dr)</b></td>
+                    <td><b>{{tax.balance | number:'1.1-2'}}</b></td>
+                </tr>
+                <tr>
+                    <td><b>Cost Value of Securites</b></td>
+                    <td><b>{{tax.cv | number:'1.1-2'}}</b></td>
+                    <td><b>Market Value of Securites</b></td>
+                    <td><b>{{tax.mvs | number:'1.1-2'}}</b> </td>
+                </tr>
+                <tr>
+                    <td colspan="3"><b>Realised Capital Gain/Loss</b> </td>
+                    <td><b>{{tax.rg | number:'1.1-2'}}</b> </td>
+    
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <p>(All figures are in Bangladeshi Taka)</p>
+    <div class="mt-3 mb-3 pb-4">
+        Signature not required. This is a computer generated Report. error/omission please call RCL call center: +8809606016379 or mail to : rcl@royalcapitalbd.com
+    </div>
+    
+</div>
+

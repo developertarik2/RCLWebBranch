@@ -1,0 +1,149 @@
+<h2 class="text-center">CDBL Charge Receive</h2>
+
+<div class=" mx-4 p-3">
+    <form [formGroup]="inputForm" (ngSubmit)="onSubmit()">
+      <div class="row ">
+        <div class="col-md-6">
+         <div class=" card-body shadow-lg row p-3">
+            <div class="col-md-6">
+                <label style="margin-left: 15px;" class="label" for="code">RCODE</label>
+                <app-text-input  formControlName="code" [label]="'RCODE'" (change)="modelChanged($event)" ></app-text-input>
+            </div>
+            <div class="col-md-6">
+                <label style="margin-left: 5px;" class="label" for="code">NAME</label>
+                <input formControlName="name" class="form-control"  readonly />
+            </div>
+            <div class="col-md-12">
+                <div class="row ms-3">
+                   <div class="col-md-1">
+                       <p class="mt-2">JULY-</p>
+                   </div>
+                   <div class="col-md-3">
+                       <select class="form-select w100" id="fromYear" formControlName="fromYear">
+                       
+                           <option *ngFor="let c of cdblYear?.thisYears" [ngValue]="c.value">{{ c.text }}</option>
+                       </select>
+                   </div>
+                   <div class="col-md-1">
+                       <p class="mt-2">TO</p>
+                   </div>
+                   <div class="col-md-1">
+                       <p class="mt-2">JUNE-</p>
+                   </div>
+                   <div class="col-md-3">
+                       <select class="form-select w100" id="fromYear" formControlName="toYear" (change)="toYearChange($event)">
+                       
+                           <option *ngFor="let c of cdblYear?.nextYears" [value]="c.value">{{ c.text }}</option>
+                       </select>
+                   </div>
+                   
+                  
+                </div>
+                  
+                  
+               </div>
+               <div class="col-md-3 pt-4 ps-4">
+         
+                <label>Charge(Yearly)</label>
+         <input formControlName="amount" class="form-control"  readonly />
+     </div>
+     <div class="col-md-3 pt-4">
+         <p class="mt-4">Total Amount: <span style="color: crimson;font-weight:bold">{{totalAmount}}</span></p>
+       
+ 
+    </div>
+         </div>
+         <div class="ms-5 mx-3 mt-3">
+       
+       
+            <button [disabled]="inputForm.invalid &&  !boStatus"   class="ml-3  btn btn-primary submit px-3">SUBMIT</button>
+          
+            <!--<button type="button" (click)="onPrint()" [disabled]="inputForm.invalid &&  !client"  class="ms-3 mt-4 btn btn-info submit px-3">PRINT</button>-->
+        </div>
+           
+        </div>
+        
+        <div class="col-md-6">
+            <h3 class="text-center text-info">Previous CDBL Charge History</h3>
+            <div *ngIf="history else content" class="overflow-auto">
+                <table  class="table table-hover table-bordered" style="cursor: pointer;">
+                  <thead class="bg-dark text-white">
+                  <tr>
+                   
+                                <th>Date</th>
+                                <th>MR_NO</th>
+                                <th>Year</th>
+                                <th>Amount</th>
+                               
+                               
+                  </tr>
+                  </thead>
+                  <tbody>
+                  <tr *ngFor="let charge of history" >
+                    <td>{{charge.date}} </td>
+                    <td>{{charge.mR_NO}}</td>
+                    <td>{{charge.fiscal}}</td>
+                    <td>{{charge.amount }} </td>
+                    
+                  
+                  </tr>
+                  </tbody>
+                  
+                </table>
+              </div>
+        
+              <ng-template #content>
+                <h3 class="text-center">No data found</h3>
+            </ng-template>
+        </div>
+       
+        </div>
+
+        
+ 
+  
+  
+    
+      
+      </form>
+    
+  </div>
+
+  <div *ngIf="cdblCharge" class="mb-4">
+    <div class="ms-5">
+        Data Saved Successfully!!! Recept No : {{this.cdblCharge.mR_NO}}
+        <button type="button" (click)="onPrint()" [disabled]="  !cdblCharge"  class="ms-3 mt-4 btn btn-info submit px-3">PRINT</button>
+    </div> 
+    <div class="card-body mx-4 shadow-lg p-4">
+        <div class="row ">
+            <div class="col-md-6">
+              <img src="../../assets/images/rcl-logo.png" alt="n/a" />
+            </div>
+            <div class="col-md-6">
+              
+                <h3 class="float-right">{{this.cdblCharge.branchName}}</h3>
+             
+              </div>
+        </div>
+        <h2 class="text-center text-primary">CDBL Charge Money Receipt</h2>
+        <div class="row">
+            <div class="col-md-6">
+                <p>MR: {{this.cdblCharge.mR_NO}}</p>
+              </div>
+              <div class="col-md-6">
+                
+                  <p class="float-right">Date: {{this.cdblCharge.date}}</p>
+               
+                </div>
+        </div>
+        <div>
+            <p>Received with thanks from <b>{{this.cdblCharge.name}}</b></p>
+            <p>For CDBL anual charges for the year <b>{{this.cdblCharge.fis}}</b> </p>
+            <p>Taka <span>{{this.cdblCharge.tamnt}}/- in Cash</span></p>
+        </div>
+        <div>
+            * This is a computer generate money receipt, do not required any signature
+        </div>
+    </div>
+   
+  </div>

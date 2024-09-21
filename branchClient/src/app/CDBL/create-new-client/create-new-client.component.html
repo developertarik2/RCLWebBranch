@@ -1,0 +1,40 @@
+<h2 class="text-center">Create New Client</h2>
+
+<div class="card-body shadow-lg mx-4 p-3">
+    <form [formGroup]="inputForm" (ngSubmit)="onSubmit()">
+      <div class="row mx-2">
+        <div class="col-md-3">
+         
+            <label style="margin-left: 15px;" class="label" for="code">Client Code</label>
+            <!--<app-text-input  formControlName="clientName" [label]="'Client Code'" ></app-text-input>-->
+            <input formControlName="code" class="form-control" value={{newCode}} readonly />
+        </div>
+       
+        <div class="col-md-3">
+            <label style="margin-left: 15px;" class="label" for="name">Client Name</label>
+            <app-text-input  formControlName="name" [label]="'Client Name'" ></app-text-input>
+           
+        </div>
+        <!--<div class="col-md-3">
+         <label style="margin-left: 5px;" class="label" for="code">Price</label>
+         <input formControlName="amount" class="form-control" value={{boPrice}} readonly />
+           
+        </div>-->
+ 
+  
+  
+      </div>
+      <div class="ms-5 mx-3">
+       
+       
+        <button [disabled]="inputForm.invalid"  class="ml-3  btn btn-primary submit px-3">CREATE</button>
+      
+        <!--<button type="button" (click)="onPrint()" [disabled]="inputForm.invalid &&  !client"  class="ms-3 mt-4 btn btn-info submit px-3">PRINT</button>-->
+    </div>
+      </form>
+
+      <div *ngIf="msg" class="alert alert-success" role="alert">
+       {{msg}}
+      </div>
+    
+  </div>

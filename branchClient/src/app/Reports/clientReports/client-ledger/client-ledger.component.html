@@ -1,0 +1,82 @@
+<h2 class="text-center">Client Ledger</h2>
+
+<div class="card-body shadow-lg mx-4 p-3">
+  <form [formGroup]="inputForm" (ngSubmit)="onSubmit()">
+    <div class="row mx-2">
+      <div class="col-md-3">
+       
+          <label style="margin-left: 15px;" class="label" for="code">Code</label>
+          <app-text-input formControlName="code" [label]="'Code'"></app-text-input>
+        
+      
+      </div>
+<div class="col-md-3">
+  
+    <label class="label ms-3" for="formDate">From Date</label>
+  
+  <app-text-input [type]="'date'" formControlName="fromDate" [label]="'Form Date'" ></app-text-input>
+
+</div>
+<div class="col-md-3">
+  
+    <label class="label ms-3" for="toDate">To Date</label>
+    <app-text-input [type]="'date'" formControlName="toDate" [label]="'To Date'" ></app-text-input>
+  
+
+</div>
+
+
+    </div>
+    <div class="ms-5 mx-3">
+      <button [disabled]="inputForm.invalid"  class="ml-3 btn btn-primary submit px-3">SUBMIT</button>
+
+      <button type="button" (click)="getReport()" [disabled]="inputForm.invalid && ( !ledgers|| ledgers.length ===0)"  class="ms-3 btn btn-info submit px-3">PRINT</button>
+  </div>
+    </form>
+  
+</div>
+<hr style="page-break-after: always;">
+<div  class="container mt-2 mb-4">
+    <div>
+      <div class="overflow-auto">
+        <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table table-hover table-bordered" style="cursor: pointer;">
+          <thead class="bg-dark text-white">
+          <tr>
+            <th>Voucher</th>
+            <th style="width:15%">Date</th>
+                        <th>Type</th>
+                        <th>Instrument</th>
+                        <th>Quantity</th>
+                        <th>Rate</th>
+                        <th>Debit</th>
+                        <th>Credit</th>
+                        <th>Comission</th>
+                        <th>Balance</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let ledger of ledgers" >
+            <td>{{ledger.vno}}</td>
+            <td>{{ledger.tdate | date:'mediumDate' }} </td>
+            <td>{{ledger.type}}</td>
+            <td>{{ledger.narr}}</td>
+            <td>{{ledger.quantity}}</td>
+            <td>{{ledger.rate  | number:'1.1-2'}}</td>
+            <td>{{ledger.debit | number:'1.1-2'}}</td>
+            <td>{{ledger.credit | number:'1.1-2'}}</td>
+            <td>{{ledger.commission | number:'1.1-2'}}</td>
+            <td>{{ledger.totalBalance | number:'1.1-2'}}</td>
+
+
+           <!--<th># {{order.id}}</th>
+            <td>{{order.orderDate | date: 'medium'}}</td>
+            <td>{{order.total | currency}}</td>
+            <td>{{order.status}}</td>-->
+          </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <ng-template #content>content here...</ng-template>
+    </div>
+  </div>

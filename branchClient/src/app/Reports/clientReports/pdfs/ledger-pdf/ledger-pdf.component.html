@@ -1,0 +1,54 @@
+
+
+<div *ngIf="client">
+    Name: {{client.aname}}
+    Father Name:{{client.faname}}<br>
+    Address:{{client.address}}
+</div>
+<div style="page-break-after: always;" class=" text-right">
+  <button class="btn btn-success btn-block" (click)="openPDF()">Download PDF</button>
+  <button class="btn btn-info" (click)="makePDF()">Generate PDF</button>
+</div>
+
+<div  class="container mt-2 mb-4">
+    <div>
+      <div #contentToConvert class="overflow-auto" id="htmlData">
+        <table id="ta"  class="table table-hover table-bordered" style="cursor: pointer;">
+          <thead class="bg-dark text-white">
+          <tr>
+            <th style="width:15%">Date</th>
+                        <th>Type</th>
+                        <th>Instrument</th>
+                        <th>Quantity</th>
+                        <th>Rate</th>
+                        <th>Debit</th>
+                        <th>Credit</th>
+                        <th>Comission</th>
+                        <th>Balance</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let ledger of ledgers"  >
+            <td>{{ledger.tdate | date:'mediumDate' }} </td>
+            <td>{{ledger.type}}</td>
+            <td>{{ledger.narr}}</td>
+            <td>{{ledger.quantity}}</td>
+            <td>{{ledger.rate  | number:'1.1-2'}}</td>
+            <td>{{ledger.debit | number:'1.1-2'}}</td>
+            <td>{{ledger.credit | number:'1.1-2'}}</td>
+            <td>{{ledger.commission | number:'1.1-2'}}</td>
+            <td>{{ledger.totalBalance | number:'1.1-2'}}</td>
+
+
+           <!--<th># {{order.id}}</th>
+            <td>{{order.orderDate | date: 'medium'}}</td>
+            <td>{{order.total | currency}}</td>
+            <td>{{order.status}}</td>-->
+          </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <ng-template #content>content here...</ng-template>
+    </div>
+  </div>

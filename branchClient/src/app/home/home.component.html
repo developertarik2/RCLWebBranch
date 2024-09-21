@@ -1,0 +1,236 @@
+<link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
+
+<div  class="sidebar " 
+[ngClass]="status ? '' : 'close'">
+<div class="logo-details">
+
+ <i (click)="openBar()" [ngClass]="status ? 'fa-solid fa-xmark' : 'fa-solid fa-bars'"></i>
+ <span class="logo_name"><img width="170" height="30" src="../../assets/images/rcl-logo.png" ></span>
+ <!--<span class="logo_name">RCL</span>-->
+</div>
+<ul class="nav-links">
+ <!--<li>
+   <a>
+    
+     <i class="fa-solid fa-table-cells-large"></i>
+     <span class="link_name">Dashboard</span>
+   </a>
+   <ul class="sub-menu blank">
+     <li><a class="link_name" routerLink="/dashboard">Dashboard</a></li>
+   </ul>
+ </li>-->
+ <li  [ngClass]="{'showMenu':r1.isOpen}">
+   <div class="iocn-link">
+     <a>
+     
+      <i class="fa-solid fa-building-columns"></i>
+       <span class="link_name">CDBL</span>
+     </a>
+     <i appDropDown #r1="appDropDown" class='bx bxs-chevron-down arrow' ></i>
+   </div>
+   <ul class="sub-menu">
+     <li><a class="link_name" >CDBL</a></li>
+     <li><a routerLink="/home/cdbl/boAckowledgement">BO Acknowledgement</a></li>
+     <li><a routerLink="/home/cdbl/boReceive">BO Sale</a></li>
+     <li><a routerLink="/home/cdbl/cdblChargeReceive">CDBL Charge Recieve</a></li>
+     <li><a routerLink="/home/cdbl/createNew">Create New Client</a></li>
+   </ul>
+ </li>
+ <li [ngClass]="status2 ? 'showMenu' : ''">
+   <div class="iocn-link">
+     <a>
+     
+      <!--<i class="fa-solid fa-money-bill-trend-up"></i>-->
+      <i class="fas fa-id-card"></i>
+       <span class="link_name">Client Reports</span>
+     </a>
+     <i (click)="arrow()" class='bx bxs-chevron-down arrow' ></i>
+   </div>
+   <ul class="sub-menu">
+     <li><a class="link_name" >Client Reports</a></li>
+     <li><a routerLink="/home/clientReports/portfolio">Port Folio</a></li>
+     <li><a routerLink="/home/clientReports/clientLedger">Client Ledger</a></li>
+     <li><a routerLink="/home/clientReports/clientConfirmation">Client Confirmation</a></li>
+     <li><a routerLink="/home/clientReports/clientReceipt">Receipt/Payment</a></li>
+     <li><a routerLink="/home/clientReports/clientTax">Tax Report</a></li>
+     <!--<li><a routerLink="/home/clientReports/portfolioDetails" >Portfolio Details(P/L)</a></li>-->
+   </ul>
+ </li>
+ <li [ngClass]="{'showMenu':r3.isOpen}">
+   <div class="iocn-link">
+     <a>
+     
+      <i class="fas fa-file-invoice"></i>
+       <span class="link_name">CDBL Report</span>
+     </a>
+     <i appDropDown #r3="appDropDown" class='bx bxs-chevron-down arrow' ></i>
+   </div>
+   <ul class="sub-menu">
+     <li><a class="link_name">CDBL Report</a></li>
+     <li><a routerLink="/home/cdblReports/cdblChargeRec">Charge Receive</a></li>
+     <li><a routerLink="/home/cdblReports/cdblChargeDet">Charge Receive(Detail)</a></li>
+     <li><a routerLink="/home/cdblReports/cdblChargeClient">Charge Receive(Client)</a></li>
+     
+   </ul>
+ </li>
+  <li [ngClass]="{'showMenu':r4.isOpen}">
+   <div class="iocn-link">
+     <a>
+       
+       <!--<i class="fa-solid fa-file"></i>-->
+       <i class="fab fa-sellsy"></i>
+       <span class="link_name">BO Report</span>
+     </a>
+     <i appDropDown #r4="appDropDown" class='bx bxs-chevron-down arrow' ></i>
+   </div>
+   <ul class="sub-menu">
+     <li><a class="link_name" >BO Report</a></li>
+     <li><a routerLink="/home/boReports/boReport">BO Sale Report</a></li>
+     <li><a routerLink="/home/boReports/boSaleDetail">BO Sale Report(Detail)</a></li>
+    
+   
+   </ul>
+ </li>
+ <!--<li [ngClass]="{'showMenu':r5.isOpen}">
+   <div class="iocn-link">
+     <a>
+      <i class="fa-solid fa-file"></i>
+       <span class="link_name">IPO Services</span>
+     </a>
+     <i appDropDown #r5="appDropDown" class='bx bxs-chevron-down arrow' ></i>
+   </div>
+   <ul class="sub-menu">
+     <li><a class="link_name">IPO Services</a></li>
+               <li><a  >Apply Online IPO</a></li>
+     <li><a  >Upcoming IPO</a></li>
+   
+   </ul>
+ </li>-->
+  <li [ngClass]="{'showMenu':r5.isOpen}">
+   <div class="iocn-link">
+     <a>
+      <!--<i class="fa-solid fa-file"></i>-->
+      <i class="fas fa-file-invoice-dollar"></i>
+       <span class="link_name">EFT Services</span>
+     </a>
+     <i appDropDown #r5="appDropDown" class='bx bxs-chevron-down arrow' ></i>
+   </div>
+   <ul class="sub-menu">
+     <li><a class="link_name">EFT Services</a></li>
+     <li><a routerLink="/home/CheckRequisition">Check Requisition (SMS)</a></li>
+    
+   
+   </ul>
+ </li>
+ <li>
+  <a routerLink="/home/changePassword">
+   
+    <i class="fas fa-key"></i>
+    <span class="link_name">Change Password</span>
+  </a>
+  <ul class="sub-menu blank">
+    <li><a class="link_name" routerLink="/home/changePassword">Change Password</a></li>
+  </ul>
+</li>
+
+ 
+ 
+
+ <li>
+<div class="profile-details">
+ <div class="profile-content">
+   <!--<img src="image/profile.jpg" alt="profileImg">-->
+   <i class="fas fa-user-tie"></i>
+ </div>
+ <div class="name-job">
+   <div class="profile_name">{{((currentUser$|async)?.username )}}</div>
+   <!--<div class="job">Web Desginer</div>-->
+ </div>
+ <i (click)="logout()" class='bx bx-log-out' ></i>
+</div>
+</li>
+</ul>
+</div>
+
+
+
+<section [ngClass]="small ? 'body-md-screen' : 'body-trimmed'" class="home-section overflow-auto body-trimmed">
+    <nav  class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-danger border-bottom box-shadow mb-3 ">
+       <div class="container-fluid">
+           <!--<span #bar1 (click)="openBar()" class="mt-1 mr-1" style="font-size:35px;margin-left:5px"> <i class="fa-solid fa-bars"></i></span> -->
+           <a class="navbar-brand font-weight-bold" >ROYAL CAPITAL</a>
+           <button  (click)="toggleNavbarCollapsing()" 
+                    class="navbar-toggler" 
+                    type="button" 
+                    data-bs-toggle="collapse" 
+                    data-bs-target=".navbar-collapse" 
+                    aria-controls="navbarSupportedContent"
+                    aria-expanded="true" aria-label="Toggle navigation">
+               <span class="navbar-toggler-icon"></span>
+           </button>
+           <div  [class.collapse]="navbarCollapsed" class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+               <ul class="navbar-nav flex-grow-1">
+                <li *ngIf="currentUser$ | async" class="nav-item">
+                  <a class="nav-link text-dark" >{{(currentUser$|async).branchName}} {{'('+(currentUser$|async).branchCode+')'}}</a>
+              </li>
+                   <!--<li class="nav-item">
+                       <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                   </li>
+                   <li class="nav-item">
+                       <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                   </li>-->
+               </ul>
+           </div>
+           <div  [class.collapse]="navbarCollapsed" class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
+                <ul class="navbar-nav mb-2 mb-lg-0">
+                 <li class="nav-item">
+                     
+                           <a (click)="logout()" class="btn btn-warning ml-2"  area-current="page" >
+                      <i class="fas fa-sign-out-alt"></i> Logout</a>
+                       
+                      
+                         <!---  <a class="nav-link active" area-current="page" href="#">
+                       Login
+                   </a>-->
+                   
+                 </li>
+                </ul>
+               </div>
+       </div>
+   </nav>
+<div class="home-content">
+  <app-section-header></app-section-header>
+  <router-outlet></router-outlet>
+ 
+<!--<div class="btn-group" appDropDown #r="appDropDown" >
+  <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" >
+    Manage
+    <span class="caret"></span></button>
+  <ul class="dropdown-menu" [ngClass]="{'show':r.isOpen}" >
+    <li><a class="dropdown-item" style="cursor: pointer"
+           >To Shopping List</a></li>
+    <li><a class="dropdown-item" href="#">Edit Recipe</a></li>
+    <li><a class="dropdown-item" href="#">Delete Recipe</a></li>
+  </ul>
+</div>
+
+<div class="btn-group" appDropDown #r2="appDropDown" >
+  <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" >
+    Manage
+    <span class="caret"></span></button>
+  <ul class="dropdown-menu" [ngClass]="{'show':r2.isOpen}" >
+    <li><a class="dropdown-item" style="cursor: pointer"
+           >To Shopping List</a></li>
+    <li><a class="dropdown-item" href="#">Edit Recipe</a></li>
+    <li><a class="dropdown-item" href="#">Delete Recipe</a></li>
+  </ul>
+</div>-->
+
+</div>
+
+</section>
+<!--<app-client-ledger></app-client-ledger>
+<app-dashboard></app-dashboard>-->
+
+
+<!--<a [routerLink]="['/reports']">Component One</a>-->

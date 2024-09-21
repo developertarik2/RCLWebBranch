@@ -1,0 +1,116 @@
+<h2 class="text-center">:: Client Confirmation ::</h2>
+
+<div class="card-body shadow-lg mx-4 p-3">
+    <form [formGroup]="inputForm" (ngSubmit)="onSubmit()">
+      <div class="row mx-2">
+        <div class="col-md-3">
+         
+            <label style="margin-left: 15px;" class="label" for="code">Code</label>
+            <app-text-input formControlName="code" [label]="'Code'"></app-text-input>
+          
+        
+        </div>
+  <div class="col-md-3">
+    
+      <label class="label ms-3" for="date"> Date</label>
+    
+    <app-text-input [type]="'date'" formControlName="date" [label]="'Date'" ></app-text-input>
+  
+  </div>
+ 
+  
+  
+      </div>
+      <div class="ms-5 mx-3">
+        <button [disabled]="inputForm.invalid"  class="ml-3 btn btn-primary submit px-3">SUBMIT</button>
+  
+        <button (click)="onPrint()" [disabled]="inputForm.invalid && ( !confirmations|| confirmations.confirmationDetailsList.length ===0)"  class="ms-3 btn btn-info submit px-3">PRINT</button>
+    </div>
+      </form>
+    
+  </div>
+
+  <div  class="container mt-2 mb-4">
+    <div *ngIf="confirmations">
+      <div class="overflow-auto">
+        <table  class="table table-hover table-bordered" style="cursor: pointer;">
+          <thead class="bg-dark text-white">
+          <tr>
+                        <th>Exchange</th>
+                        <th>Code</th>
+                        <th>Instrument</th>
+                        <th>Buy Quantity</th>
+                        <th>Buy Rate</th>
+                        <th>Buy Amount</th>
+                        <th>Sale Quantity</th>
+                        <th>Sale Rate</th>
+                        <th>Sale Amount</th>
+                        <th>Balance Quantity</th>
+                        <th class="text-right">Com (B+S)</th>
+                        <th class="text-right">Balance</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let confirm of confirmations?.confirmationDetailsList" >
+            <td>{{confirm.exch}}</td>
+            <td>{{confirm.code }} </td>
+            <td>{{confirm.instrument}}</td>
+            <td>{{confirm.buyQty}}</td>
+            <td>{{confirm.buyRate}}</td>
+            <td>{{confirm.buyAmt  | number:'1.1-2'}}</td>
+            <td>{{confirm.saleQty | number:'1.1-2'}}</td>
+            <td>{{confirm.saleRate | number:'1.1-2'}}</td>
+            <td>{{confirm.saleAmt | number:'1.1-2'}}</td>
+            <td>{{confirm.balQty }}</td>
+            <td>{{confirm.com_B_S | number:'1.1-2'}}</td>
+            <td style="text-align:right">{{confirm.balance | number:'1.1-2'}}</td>
+
+           <!--<th># {{order.id}}</th>
+            <td>{{order.orderDate | date: 'medium'}}</td>
+            <td>{{order.total | currency}}</td>
+            <td>{{order.status}}</td>-->
+          </tr>
+          </tbody>
+          <tfoot>
+            <td colspan="12">
+                <div style="float:right" class="text-right">
+                    {{confirmations?.netAmountTrading | number:'1.1-2'}}
+                </div>
+               
+            </td>
+          </tfoot>
+        </table>
+      </div>
+
+      <div class="mb-3 pb-5">
+        <table class="table">
+            <tbody>
+                <tr>
+                    <td>Ledger balance before trading</td> <td>{{confirmations?.ledger | number:'1.1-2'}}</td>
+                </tr>
+                <tr>
+                    <td>Add: Receipt</td>
+                    <td>{{confirmations.reciept | number:'1.1-2'}}</td>
+                </tr>
+                <tr>
+                    <td>Less: Payment</td>
+                    <td>{{confirmations.payment | number:'1.1-2'}}</td>
+                </tr>
+                <tr>
+                    <td>Net Amount of Trading</td>
+                    <td>{{confirmations?.netAmountTrading | number:'1.1-2'}}</td>
+                </tr>
+                <tr class="table-warning">
+                    <td>Closing Balance of the day</td>
+                    <td>{{confirmations.closingBalance | number:'1.1-2'}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    
+    </div>
+    <ng-template #content>
+        <h3 class="text-danger text-center">No Data Found</h3>>
+      </ng-template>
+  </div>

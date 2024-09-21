@@ -1,0 +1,71 @@
+<h2 class="text-center">:: Client Receipt ::</h2>
+
+<div class="card-body shadow-lg mx-4 p-3">
+    <form [formGroup]="inputForm" (ngSubmit)="onSubmit()">
+        <div class="row mx-2">
+            <div class="col-md-3">
+             
+                <label style="margin-left: 15px;" class="label" for="code">Code</label>
+                <app-text-input formControlName="code" [label]="'Code'"></app-text-input>
+              
+            
+            </div>
+      <div class="col-md-3">
+        
+          <label class="label ms-3" for="formDate">From Date</label>
+        
+        <app-text-input [type]="'date'" formControlName="fromDate" [label]="'Form Date'" ></app-text-input>
+      
+      </div>
+      <div class="col-md-3">
+        
+          <label class="label ms-3" for="toDate">To Date</label>
+          <app-text-input [type]="'date'" formControlName="toDate" [label]="'To Date'" ></app-text-input>
+        
+      
+      </div>
+      
+      
+          </div>
+      <div class="ms-5 mx-3">
+        <button [disabled]="inputForm.invalid"  class="ml-3 btn btn-primary submit px-3">SUBMIT</button>
+  
+        <button (click)="onPrint()" [disabled]="inputForm.invalid && ( !rec|| rec.length ===0)"  class="ms-3 btn btn-info submit px-3">PRINT</button>
+    </div>
+      </form>
+    
+  </div>
+
+  <div  class="container mt-2 mb-4">
+    <div mx-5>
+      <div class="overflow-auto">
+        <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table table-hover table-bordered" style="cursor: pointer;">
+          <thead class="bg-dark text-white">
+          <tr>
+                        <th>Date</th>
+                        <th>Voucher No</th>
+                        <th>Deposit</th>
+                        <th>Withdraw</th>
+                        
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let recpt of rec" >
+            <td>{{recpt.date | date:'mediumDate'}}</td>
+            <td>{{recpt.voucherNo }} </td>
+            <td>{{recpt.deposit}}</td>
+            <td>{{recpt.withdraw}}</td>
+           
+          </tr>
+          </tbody>
+         
+        </table>
+      </div>
+
+      
+    
+    </div>
+    <ng-template #content>
+        <h3 class="text-danger text-center">No Data Found</h3>
+      </ng-template>
+  </div>

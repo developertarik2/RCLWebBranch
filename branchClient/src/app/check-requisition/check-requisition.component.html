@@ -1,0 +1,68 @@
+<h2 class="text-center">:: Client Requisition ::</h2>
+
+<div class="card-body shadow-lg mx-4 p-3">
+    <form [formGroup]="inputForm" (ngSubmit)="onSubmit()">
+      <div class="row mx-2">
+        <div class="col-md-3">
+         
+            <label style="margin-left: 5px;" class="label" for="code">Client Code</label>
+           <app-text-input [ariaReadOnly] formControlName="code" [label]="'Client Code'"></app-text-input>
+         
+          <!--<input class="form-control" type="hidden" formControlName="branchCode" value='{{branchCode}}' readonly/>-->
+        </div>
+       
+ 
+ 
+  
+  
+      </div>
+      <div class="ms-5 mx-3">
+        <button [disabled]="inputForm.invalid"  class="ml-3 btn btn-primary submit px-3">SUBMIT</button>
+  
+        <button [disabled]="inputForm.invalid && ( !checks|| checks.length ===0)"  class="ms-3 btn btn-info submit px-3">PRINT</button>
+    </div>
+      </form>
+    
+  </div>
+  <div  class="container mt-2 mb-4">
+    <div>
+      <div *ngIf="checks else content" class="overflow-auto">
+        <table  class="table table-hover table-bordered" style="cursor: pointer;">
+          <thead class="bg-dark text-white">
+          <tr>
+           
+                        <th>Date</th>
+                        <th>Number</th>
+                        <th>Code</th>
+                        <th>Amount</th>
+                        <th>Status</th>
+                        <th>Registered</th>
+                        <th>Deleted</th>
+                        <th>I/F</th> 
+                       
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let charge of checks" >
+            <td>{{charge.dat | date:'mediumDate'}} </td>
+            <td>{{charge.smS_Number}} </td>
+            <td>{{charge.rcode}}</td>
+          
+            <td>{{charge.amount}}</td>
+            <td>{{charge.stat}} </td>
+            <td>{{charge.registered}}</td>
+            <td>{{charge.deleted}} </td>
+            <td>{{charge.if}} </td>
+          </tr>
+          </tbody>
+          
+        </table>
+      </div>
+
+      <ng-template #content>
+        <h3 class="text-center">No data found</h3>
+    </ng-template>
+    </div>
+  </div>
+
+

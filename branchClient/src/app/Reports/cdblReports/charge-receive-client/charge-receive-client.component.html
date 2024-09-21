@@ -1,0 +1,60 @@
+<h2 class="text-center">CDBL Charge Receive(Details)</h2>
+
+<div class="card-body shadow-lg mx-4 p-3">
+    <form [formGroup]="inputForm" (ngSubmit)="onSubmit()">
+      <div class="row mx-2">
+        <div class="col-md-3">
+         
+            <label style="margin-left: 5px;" class="label" for="code">RCODE</label>
+           <app-text-input formControlName="code" [label]="'RCODE'"></app-text-input>
+         
+        </div>
+      
+ 
+        <div class="ms-5 mx-3">
+            <button [disabled]="inputForm.invalid"  class="ml-3 btn btn-primary submit px-3">SUBMIT</button>
+      
+            <button type="button" (click)="onPrint()" [disabled]="inputForm.invalid && ( !charges|| charges?.length ===0)"  class="ms-3 btn btn-info submit px-3">PRINT</button>
+        </div>
+  
+  
+      </div>
+     
+      </form>
+    
+  </div>
+
+  <div  class="container mt-2 mb-4">
+    <div>
+      <div *ngIf="charges else content" class="overflow-auto">
+        <table  class="table table-hover table-bordered" style="cursor: pointer;">
+          <thead class="bg-dark text-white">
+          <tr>
+           
+                        <th>Date</th>
+                        <th>MR_NO</th>
+                        <th>Year</th>
+                        <th>Amount</th>
+                       
+                       
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let charge of charges" >
+            <td>{{charge.date}} </td>
+            <td>{{charge.mR_NO}}</td>
+            <td>{{charge.fiscal}}</td>
+            <td>{{charge.amount }} </td>
+            
+          
+          </tr>
+          </tbody>
+          
+        </table>
+      </div>
+
+      <ng-template #content>
+        <h3 class="text-center">No data found</h3>
+    </ng-template>
+    </div>
+  </div>

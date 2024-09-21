@@ -1,0 +1,83 @@
+<h2 class="text-center">CDBL Charge Receive(R)</h2>
+
+<div class="card-body shadow-lg mx-4 p-3">
+    <form [formGroup]="inputForm" (ngSubmit)="onSubmit()">
+      <div class="row mx-2">
+        <div class="col-md-3">
+         
+            <label style="margin-left: 5px;" class="label" for="code">Branch</label>
+           <!----<app-text-input [ariaReadOnly] formControlName="branchName" [label]="'Branch Name'"></app-text-input>-->
+          <input class="form-control" formControlName="branchName" value='{{branch}}' readonly/>
+          <!--<input class="form-control" type="hidden" formControlName="branchCode" value='{{branchCode}}' readonly/>-->
+        </div>
+        <!--<div class="col-md-3">
+         
+            <label style="margin-left: 15px;" class="label" for="code">Code</label>
+            <app-text-input [ariaReadOnly] formControlName="branchCode" [label]="'Branch Code'"></app-text-input>
+          
+        
+        </div>-->
+  <div class="col-md-3">
+    
+      <label class="label ms-3" for="formDate">From Date</label>
+    
+    <app-text-input [type]="'date'" formControlName="fromDate" [label]="'Form Date'" ></app-text-input>
+  
+  </div>
+  <div class="col-md-3">
+    
+      <label class="label ms-3" for="toDate">To Date</label>
+      <app-text-input [type]="'date'" formControlName="toDate" [label]="'To Date'" ></app-text-input>
+    
+  
+  </div>
+  
+  
+      </div>
+      <div class="ms-5 mx-3">
+        <button type="submit" [disabled]="inputForm.invalid"  class="ml-3 btn btn-primary submit px-3">SUBMIT</button>
+  
+        <button (click)="onPrint()" type="button" [disabled]="inputForm.invalid && ( !charges|| charges.length ===0)"  class="ms-3 btn btn-info submit px-3">PRINT</button>
+    </div>
+      </form>
+    
+  </div>
+  <div  class="container mt-2 mb-4">
+    <div>
+      <div *ngIf="charges else content" class="overflow-auto">
+        <table  class="table table-hover table-bordered" style="cursor: pointer;">
+          <thead class="bg-dark text-white">
+          <tr>
+           
+                        <th>Date</th>
+                        <th>Number of Account</th>
+                        <th>Amount(Tk.)</th>
+                       
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let charge of charges" >
+            <td>{{charge.date }} </td>
+            <td>{{charge.quantity}}</td>
+            <td>{{charge.amount}}</td>
+           
+
+
+          
+          </tr>
+          </tbody>
+          <tfoot class="table-secondary">
+            <tr>
+                <th>Total</th>
+                <td>{{totalBo}}</td>
+                <td>{{totalAmount}}</td>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+
+      <ng-template #content>
+        <h3 class="text-center">No data found</h3>
+    </ng-template>
+    </div>
+  </div>

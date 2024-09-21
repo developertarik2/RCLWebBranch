@@ -1,0 +1,340 @@
+<h2 class="text-center">:: Client Portfolio Details(P/L) ::</h2>
+
+<div class="card-body shadow-lg mx-4 p-3">
+    <form [formGroup]="inputForm" (ngSubmit)="onSubmit()">
+      <div class="row mx-2">
+        <div class="col-md-3">
+         
+            <label style="margin-left: 15px;" class="label" for="code">Code</label>
+            <app-text-input formControlName="code" [label]="'Code'"></app-text-input>
+          
+        
+        </div>
+  <div class="col-md-3">
+    
+      <label class="label ms-3" for="formDate">From Date</label>
+    
+    <app-text-input [type]="'date'" formControlName="fromDate" [label]="'Form Date'" ></app-text-input>
+  
+  </div>
+  <div class="col-md-3">
+    
+      <label class="label ms-3" for="toDate">To Date</label>
+      <app-text-input [type]="'date'" formControlName="toDate" [label]="'To Date'" ></app-text-input>
+    
+  
+  </div>
+  
+  
+      </div>
+      <div class="ms-5 mx-3">
+        <button [disabled]="inputForm.invalid"  class="ml-3 btn btn-primary submit px-3">SUBMIT</button>
+  
+        <button type="button" (click)="onPrint()" [disabled]="inputForm.invalid && ( !portfolioDetails|| portfolioDetails?.plDetailList.length ===0)"  class="ms-3 btn btn-info submit px-3">PRINT</button>
+    </div>
+      </form>
+    
+  </div>
+
+  <div  class="container mt-2 mb-4">
+    <div>
+      <div class="overflow-auto">
+        <table  class="table table-hover table-bordered" style="cursor: pointer;">
+          <thead class="bg-dark text-white" style="font-size: 12px;">
+          <tr>
+                    <th>SL#</th>
+                    <th>Instrument</th>
+                    <th>Bought Quantity</th>
+                    <th>Bought Cost</th>
+                    <th>Sold Quantity</th>
+                    <th>Sold Cost</th>
+                    <th>Realised Gain/Loss</th>
+                    <th>Balance Quantity</th>
+                    <th>Balance Rate</th>
+                    <th>Balance Amount</th>
+                    <th>Market Rate</th>
+                    <th>Market Amount</th>
+                    <th>Unrealised Gain</th>
+          </tr>
+          </thead>
+          <tbody style="font-size:12px">
+          <tr *ngFor="let pl of portfolioDetails?.plDetailList" style="text-align: right;">
+           
+
+            
+                        <td>{{pl.sl}}</td>
+                        <td style="text-align: left;">{{pl.firmsnm1}}</td>
+                        <td>{{pl.buyQnty}}</td>
+                        <td>{{pl.buyAmount | number:'1.1-2'}}</td>
+                        <td>{{pl.saleQnt}}</td>
+                        <td>{{pl.saleAmnt | number:'1.1-2'}}</td>
+                        <td>{{pl.rg | number:'1.1-2'}}</td>
+                        <td>{{pl.bq}}</td>
+                        <td>{{pl.br}}</td>
+                        <td>{{pl.ba | number:'1.1-2'}}</td>
+                        <td>{{pl.tmr}}</td>
+                        <td>{{pl.tma | number:'1.1-2'}}</td>
+                        <td style="text-align: right;">{{pl.tug | number:'1.1-2'}}</td>
+
+
+         
+          </tr>
+          </tbody>
+          <tfoot>
+            <tr>
+                <tr>
+                    <td colspan="4">
+                        <div style="float:right;font-weight:bold">
+                                {{portfolioDetails?.boughtCost | number:'1.1-2'}}
+                        </div>
+                        
+                        </td>
+                    <td colspan="2">
+                        <div style="float:right;font-weight:bold">
+                                {{portfolioDetails?.soldCost | number:'1.1-2'}}
+                        </div>
+                       
+                        </td>
+                    <td>
+                        <div style="float:right;font-weight:bold">
+                                {{portfolioDetails?.realisedCapitalGainLoss | number:'1.1-2'}}
+                        </div>
+                        
+                        </td>
+                    <td colspan="3">
+                         <div style="float:right;font-weight:bold">
+                                {{portfolioDetails?.balanceAmnt | number:'1.1-2'}}
+                        </div>
+                        
+                        </td>
+                    <td colspan="2">
+                            <div style="float:right;font-weight:bold">
+                               {{portfolioDetails?.marketAmnt | number:'1.1-2'}}
+                            </div>
+                        </td>
+                        <td colspan="2">
+                            <div style="float:right;font-weight:bold">
+                                {{portfolioDetails?.unrealisedGain | number:'1.1-2'}}
+                            </div>
+                        </td>
+            </tr>
+          </tfoot>
+          
+        </table>
+        <!--<table *ngIf="portfolioDetails?.plDetailList" class="table table-hover table-bordered" style="cursor: pointer;">
+            <tfoot>
+                <tr>
+                    <td colspan="4">
+                        <div style="float:right;font-weight:bold">
+                                {{portfolioDetails?.boughtCost | number:'1.1-2'}}
+                        </div>
+                        
+                        </td>
+                    <td colspan="2">
+                        <div style="float:right;font-weight:bold">
+                                {{portfolioDetails?.soldCost | number:'1.1-2'}}
+                        </div>
+                       
+                        </td>
+                    <td>
+                        <div style="float:right;font-weight:bold">
+                                {{portfolioDetails?.realisedCapitalGainLoss | number:'1.1-2'}}
+                        </div>
+                        
+                        </td>
+                    <td colspan="3">
+                         <div style="float:right;font-weight:bold">
+                                {{portfolioDetails?.balanceAmnt | number:'1.1-2'}}
+                        </div>
+                        
+                        </td>
+                    <td colspan="2">
+                            <div style="float:right;font-weight:bold">
+                               {{portfolioDetails?.marketAmnt | number:'1.1-2'}}
+                            </div>
+                        </td>
+                        <td colspan="2">
+                            <div style="float:right;font-weight:bold">
+                                {{portfolioDetails?.unrealisedGain | number:'1.1-2'}}
+                            </div>
+                        </td>
+                </tr>
+            </tfoot>
+        </table>-->
+      </div>
+
+      <ng-template #content>content here...</ng-template>
+    </div>
+  </div>
+<hr>
+<h2 class="text-center text-primary">IPO Shares</h2>
+ 
+       <div *ngIf="portfolioDetails?.iPOShareLists;else content2" class="overflow-auto">
+                <table class="table table-bordered table-hover">
+                    <thead>
+                        <tr>
+                           
+                            <th>Instrument</th>
+                            <th>Quantity</th>
+                            <th>Amount</th>
+                            <th>Date</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                       
+                            <tr *ngFor="let ipo of portfolioDetails?.iPOShareLists">
+                               
+                                <td>{{ipo.firmsnm1}}</td>
+                                <td>{{ipo.quantity}}</td>
+                                <td>{{ipo.amount | number:'1.1-2'}}</td>
+                                <td>{{ipo.dat}}</td>
+                            </tr>
+                        
+                    </tbody>
+                </table>
+    </div>
+    <ng-template #content2>
+        <h3 class="text-center text-danger">No Data Found</h3>
+    </ng-template>
+
+    <h2 class="text-center text-primary">BONUS Shares</h2>
+ 
+       <div *ngIf="portfolioDetails?.bonusShareLists?.length>0;else content3" class="overflow-auto">
+                <table class="table table-bordered table-hover">
+                    <thead>
+                        <tr>
+                           
+                            <th>Instrument</th>
+                            <th>Quantity</th>
+                            <th>Amount</th>
+                            <th>Date</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                       
+                            <tr *ngFor="let ipo of portfolioDetails?.iPOShareLists">
+                                <td>{{ipo.firmsnm1}}</td>
+                                <td>{{ipo.quantity}}</td>
+                                <td>{{ipo.amount | number:'1.1-2'}}</td>
+                                <td>{{ipo.dat}}</td>
+                            </tr>
+                        
+                    </tbody>
+                </table>
+    </div>
+    <ng-template #content3>
+        <h3 class="text-center text-danger">No Data Found</h3>
+    </ng-template>
+
+    <h2 class="text-center text-primary">RIGHT Shares</h2>
+ 
+       <div *ngIf="portfolioDetails?.rightShareLists?.length>0;else content4" class="overflow-auto">
+                <table class="table table-bordered table-hover">
+                    <thead>
+                        <tr>
+                          
+                            <th>Instrument</th>
+                            <th>Quantity</th>
+                            <th>Amount</th>
+                            <th>Date</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                       
+                            <tr *ngFor="let ipo of portfolioDetails?.iPOShareLists">
+                                <td>{{ipo.firmsnm1}}</td>
+                                <td>{{ipo.quantity}}</td>
+                                <td>{{ipo.amount | number:'1.1-2'}}</td>
+                                <td>{{ipo.dat}}</td>
+                            </tr>
+                        
+                    </tbody>
+                </table>
+    </div>
+    <ng-template #content4>
+        <h3 class="text-center text-danger">No Data Found</h3>
+    </ng-template>
+
+    <div class="overflow-auto mx-4">
+        <table  style="width:70%" class="table table-hover table-bordered">
+            <tbody style="font-weight:600">
+                <tr>
+                    <td>Opening Share Balance</td>
+<td class="text-right">
+    <div style="float:right">
+        {{portfolioDetails?.openingShareBal | number:'1.1-2'}}
+    </div>
+   
+    </td>
+                </tr>
+                <tr>
+                     <td>Ledger Balance</td>
+<td>
+    <div style="float:right">
+        {{portfolioDetails?.ledgerBal | number:'1.1-2'}}
+    </div>
+</td>
+                </tr>
+                 <tr>     
+                     <td>Portfolio Value Market Price</td>
+<td>
+    <div style="float:right">
+       {{portfolioDetails?.portfolioValueMarket | number:'1.1-2'}}
+    </div>
+</td>
+                 </tr>
+                  <tr>     
+                   <td>Portfolio Value Cost Price</td>
+<td>
+    <div style="float:right">
+       {{portfolioDetails?.portfolioValueCost | number:'1.1-2'}}
+    </div>
+</td>
+                  </tr>
+                    <tr>    
+                        <td>Deposit</td>
+<td>
+    <div style="float:right">
+        {{portfolioDetails?.deposit | number:'1.1-2'}}
+    </div>
+</td>
+                    </tr>
+                    <tr>
+                       <td>Withdrawn Amount</td>
+<td>
+    <div style="float:right">
+        {{portfolioDetails?.withdrawnAmount | number:'1.1-2'}}
+    </div>
+</td>
+                       </tr>
+                       <tr>
+                      <td>Charges</td>
+<td>
+    <div style="float:right">
+        {{portfolioDetails?.charges | number:'1.1-2'}}
+    </div>
+</td>
+                      </tr>
+                      <tr> 
+                          <td>Net Deposit</td>
+<td>
+    <div style="float:right">
+        {{portfolioDetails?.netDeposit | number:'1.1-2'}}
+    </div>
+</td>
+                          </tr>
+                          <tr>
+                       <td>Realised Capital Gain/Loss</td>
+<td>
+    <div style="float:right">
+        {{portfolioDetails?.realisedCapitalGainLoss | number:'1.1-2'}}
+    </div>
+</td>
+                       </tr>
+                
+            </tbody>
+        </table>
+    </div>
+<p class="pb-5 pt-3 mx-3">This is a computer generated Report. error/omission please call RCL call center: +8809606016379 or mail to : rcl@royalcapitalbd.com</p>
+
+    
